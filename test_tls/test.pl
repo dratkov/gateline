@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-#$ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
+$ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
 
 # Для всех коннектов требуется использовать какой-нибудь HTTPS-proxy
 $ENV{HTTPS_PROXY} = 'https://127.0.0.1:3128';
@@ -17,7 +17,13 @@ $ENV{HTTPS_PROXY} = 'https://127.0.0.1:3128';
 #$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = 'IO::Socket::SSL';
 #$NET::HTTPS::SSL_SOCKET_CLASS = 'IO::Socket::SSL';
 
-#use Net::SSL;
+use Net::SSL;
+use LWP::UserAgent;
+BEGIN
+{
+	LWP::UserAgent->new(ssl_opts=>{SSL_version=>'TLSv3'});
+}
+
 #use Net::SSLeay;
 #use Crypt::SSLeay;
 
